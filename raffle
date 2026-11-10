@@ -1,0 +1,37 @@
+import random # import Python's built-in pseudorandom generator engine utility, enabling random choices from datasets
+
+ticket_pool = []
+
+print("--- Okoro & Sons Ticket Submission Window ---")
+while True:
+    customer_id = input("Enter Customer ID to submit a ticket (or type 'done' to stop): ").strip().upper()
+    
+    if customer_id == 'DONE':
+        break
+        
+    if customer_id == "":
+        print("  Invalid ID! Ticket cannot be empty.")
+        continue
+        
+    ticket_pool.append(customer_id) # Append the text identifier directly into the master array. Multiple purchases will scale up the owner's footprint inside this pool array
+    print(f"  Ticket submitted for {customer_id}! Total tickets in pool: {len(ticket_pool)}") # Pass the database through a set() filter structure to automatically strip out duplicate instances, and allow the code to measure the total unique pool size
+
+print("\n--- Processing Raffle Draw ---")
+
+# Ensure there are enough unique customers to reward
+unique_customers = list(set(ticket_pool))
+
+if len(unique_customers) < 5:
+    print(f"Error: Not enough unique customers entered the pool. Total unique: {len(unique_customers)}. Need at least 5.")
+else:
+    winners = []
+    
+    while len(winners) < 5:
+        selected_ticket = random.choice(ticket_pool)
+        
+        if selected_ticket not in winners: # Scan the winners list to ensure this customer has not won yet
+            winners.append(selected_ticket)
+            
+    print("CONGRATULATIONS TO THE 5 UNIQUE WINNERS!")
+    for i, winner in enumerate(winners, 1): # number the items starting from 1 instead of Python's standard 0 index
+        print(f" Winner {i}: Customer ID -> {winner}") # Display the finalized numerical list of winning entries
